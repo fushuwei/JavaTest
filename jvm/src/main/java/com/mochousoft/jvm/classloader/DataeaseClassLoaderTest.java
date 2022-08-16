@@ -1,4 +1,4 @@
-package com.mochousoft.thread.classloader;
+package com.mochousoft.jvm.classloader;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;

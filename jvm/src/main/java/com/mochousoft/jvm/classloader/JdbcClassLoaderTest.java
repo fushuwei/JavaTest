@@ -1,7 +1,4 @@
-package com.mochousoft.thread.classloader;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+package com.mochousoft.jvm.classloader;
 
 // @Component
 public class JdbcClassLoaderTest {
