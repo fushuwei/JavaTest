@@ -17,6 +17,7 @@
 
     <modules>
         <module>sqlparser</module>
+        <module>flyway</module>
     </modules>
 
     <repositories>
