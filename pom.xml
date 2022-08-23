@@ -16,7 +16,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>jvm</module>
         <module>sqlparser</module>
     </modules>
 
