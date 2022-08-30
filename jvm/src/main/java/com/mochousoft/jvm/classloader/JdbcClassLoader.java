@@ -16,11 +16,6 @@ public class JdbcClassLoader extends URLClassLoader {
     }
 
     @Override
-    public Class<?> loadClass(String name) throws ClassNotFoundException {
-        return super.loadClass(name, false);
-    }
-
-    // @Override
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         synchronized (getClassLoadingLock(name)) {
             // 先判断是否已经加载过
