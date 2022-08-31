@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+/**
+ * 自定义ClassLoader，本工程jdbc模块提供了更优的类加载器实现方案
+ */
 public class JdbcClassLoader extends URLClassLoader {
 
     public JdbcClassLoader(URL[] urls) {
