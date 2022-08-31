@@ -5,7 +5,7 @@ package com.mochousoft.jdbc;
  */
 public final class ClassLoaderSwapper {
 
-    private ClassLoader originalClassLoader;
+    private final ClassLoader originalClassLoader;
 
     /**
      * 无参构造函数
@@ -15,7 +15,12 @@ public final class ClassLoaderSwapper {
         this.originalClassLoader = Thread.currentThread().getContextClassLoader();
     }
 
-    public void setClassLoader(String filePath) {
+    /**
+     * 为当前线程设置新的类加载器
+     *
+     * @param path 新的类加载器要加载的jar包路径或jar包所在目录
+     */
+    public void setClassLoader(String path) {
         // 获取自定义类加载器的parent
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         while (classLoader.getParent() != null) {
@@ -23,8 +28,9 @@ public final class ClassLoaderSwapper {
         }
 
         // 实例化自定义类加载器
-        JdbcClassLoader jdbcClassLoader = new JdbcClassLoader(new String[]{filePath}, classLoader);
+        JdbcClassLoader jdbcClassLoader = new JdbcClassLoader(new String[]{path}, classLoader);
 
+        // 为当前线程设置新的类加载器
         this.setClassLoader(jdbcClassLoader);
     }
 

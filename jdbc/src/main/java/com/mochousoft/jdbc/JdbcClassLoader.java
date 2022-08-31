@@ -6,6 +6,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 自定义类加载器
@@ -110,7 +111,7 @@ public class JdbcClassLoader extends URLClassLoader {
             // 判断当前路径是不是目录
             if (file.isDirectory()) {
                 // 循环当前路径中的所有文件和目录
-                for (File subFile : file.listFiles()) {
+                for (File subFile : Objects.requireNonNull(file.listFiles())) {
                     urls.addAll(Arrays.asList(getURLs(new String[]{subFile.getPath()})));
                 }
             }
