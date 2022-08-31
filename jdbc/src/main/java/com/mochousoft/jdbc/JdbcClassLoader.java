@@ -1,18 +1,23 @@
 package com.mochousoft.jdbc;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+/**
+ * 自定义类加载器
+ */
 public class JdbcClassLoader extends URLClassLoader {
 
-    public JdbcClassLoader(URL[] urls) {
-        super(urls);
+    public JdbcClassLoader(String[] paths) {
+        super(getURLs(paths));
     }
 
-    public JdbcClassLoader(URL[] urls, ClassLoader parent) {
-        super(urls, parent);
+    public JdbcClassLoader(String[] paths, ClassLoader parent) {
+        super(getURLs(paths), parent);
     }
 
     @Override
@@ -73,21 +78,53 @@ public class JdbcClassLoader extends URLClassLoader {
         }
     }
 
-    public void addFile(String s) throws IOException {
-        File f = new File(s);
-        addFile(f);
-    }
+    /**
+     * 读取指定路径下的jar包
+     *
+     * @param paths jar包路径（数组类型）
+     * @return 返回路径下所有jar包的URL（包含子目录）
+     */
+    public static URL[] getURLs(String[] paths) {
+        List<URL> urls = new ArrayList<>();
 
-    public void addFile(File f) throws IOException {
-        addFile(f.toURI().toURL());
-    }
-
-    public void addFile(URL u) throws IOException {
-        try {
-            this.addURL(u);
-        } catch (Throwable t) {
-            t.printStackTrace();
-            throw new IOException("Error, could not add URL to system classloader");
+        // 判断jar包路径是否为空
+        if (paths == null || paths.length == 0) {
+            return new URL[0];
         }
+
+        // 循环所有jar包路径
+        for (String path : paths) {
+            // 判断当前路径是否为空
+            if (path == null || "".equals(path)) {
+                throw new RuntimeException("jar包路径不能为空");
+            }
+
+            // 创建当前路径的File对象
+            File file = new File(path);
+
+            // 判断当前路径是否存在
+            if (!file.exists()) {
+                throw new RuntimeException("jar包路径不存在：" + path);
+            }
+
+            // 判断当前路径是不是目录
+            if (file.isDirectory()) {
+                // 循环当前路径中的所有文件和目录
+                for (File subFile : file.listFiles()) {
+                    urls.addAll(Arrays.asList(getURLs(new String[]{subFile.getPath()})));
+                }
+            }
+
+            // 如果当前路径是一个jar包文件，则记录该路径的URL
+            try {
+                if (file.isFile() && file.getName().endsWith(".jar")) {
+                    urls.add(file.toURI().toURL());
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return urls.toArray(new URL[0]);
     }
 }

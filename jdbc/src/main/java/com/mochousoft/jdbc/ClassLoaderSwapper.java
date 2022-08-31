@@ -1,11 +1,5 @@
 package com.mochousoft.jdbc;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Optional;
-
 /**
  * ClassLoader交换器
  */
@@ -13,12 +7,15 @@ public final class ClassLoaderSwapper {
 
     private ClassLoader originalClassLoader;
 
+    /**
+     * 无参构造函数
+     */
     public ClassLoaderSwapper() {
         // 保存当前线程的类加载器
         this.originalClassLoader = Thread.currentThread().getContextClassLoader();
     }
 
-    public void setClassLoader(String classpath) {
+    public void setClassLoader(String filePath) {
         // 获取自定义类加载器的parent
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         while (classLoader.getParent() != null) {
@@ -26,26 +23,7 @@ public final class ClassLoaderSwapper {
         }
 
         // 实例化自定义类加载器
-        JdbcClassLoader jdbcClassLoader = null;
-        try {
-            jdbcClassLoader = new JdbcClassLoader(new URL[]{new File(classpath).toURI().toURL()}, classLoader);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-        // File file = new File(classpath);
-        // File[] array = file.listFiles();
-        // Optional.ofNullable(array).ifPresent(files -> {
-        //     for (File tmp : array) {
-        //         if (tmp.getName().endsWith(".jar")) {
-        //             try {
-        //                 jdbcClassLoader.addFile(tmp);
-        //             } catch (IOException e) {
-        //                 e.printStackTrace();
-        //             }
-        //         }
-        //     }
-        // });
+        JdbcClassLoader jdbcClassLoader = new JdbcClassLoader(new String[]{filePath}, classLoader);
 
         this.setClassLoader(jdbcClassLoader);
     }
