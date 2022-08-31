@@ -17,6 +17,7 @@
 
     <modules>
         <module>jvm</module>
+        <module>jdbc</module>
         <module>sqlparser</module>
         <module>flyway</module>
     </modules>
