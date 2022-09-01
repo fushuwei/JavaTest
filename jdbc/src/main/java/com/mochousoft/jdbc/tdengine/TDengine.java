@@ -10,6 +10,8 @@ import java.util.Properties;
  * 涛思数据库
  * <br/>
  * 技术文档: https://docs.taosdata.com
+ * <br/><br/>
+ * 为了方便，该案例使用rest方式连接数据源，如果希望使用原生jdbc方式连接，则需要将 libtaos.so 文件放到服务器的 /usr/lib/ 目录中
  */
 public class TDengine {
 
