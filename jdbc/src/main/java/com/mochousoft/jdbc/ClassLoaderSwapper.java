@@ -20,7 +20,7 @@ public final class ClassLoaderSwapper {
      *
      * @param path 新的类加载器要加载的jar包路径或jar包所在目录
      */
-    public void setClassLoader(String path) {
+    public void setCurrentThreadClassLoader(String path) {
         // 获取自定义类加载器的parent
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         while (classLoader.getParent() != null) {
@@ -31,7 +31,7 @@ public final class ClassLoaderSwapper {
         JdbcClassLoader jdbcClassLoader = new JdbcClassLoader(new String[]{path}, classLoader);
 
         // 为当前线程设置新的类加载器
-        this.setClassLoader(jdbcClassLoader);
+        this.setCurrentThreadClassLoader(jdbcClassLoader);
     }
 
     /**
@@ -39,14 +39,14 @@ public final class ClassLoaderSwapper {
      *
      * @param classLoader 自定义类加载器
      */
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setCurrentThreadClassLoader(ClassLoader classLoader) {
         Thread.currentThread().setContextClassLoader(classLoader);
     }
 
     /**
      * 还原当前线程的类加载器
      */
-    public void restoreClassLoader() {
+    public void restoreCurrentThreadClassLoader() {
         Thread.currentThread().setContextClassLoader(this.originalClassLoader);
     }
 

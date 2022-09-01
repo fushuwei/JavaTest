@@ -8,7 +8,7 @@ class MySQL5Test {
     @Test
     public void testQuery() {
         ClassLoaderSwapper classLoaderSwapper = new ClassLoaderSwapper();
-        classLoaderSwapper.setClassLoader("lib/mysql-connector-java-5.1.34.jar");
+        classLoaderSwapper.setCurrentThreadClassLoader("lib/mysql-connector-java-5.1.34.jar");
 
         MySQL5 mysql5 = new MySQL5();
         mysql5.query("select version()");
