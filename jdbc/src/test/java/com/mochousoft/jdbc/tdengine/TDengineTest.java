@@ -11,6 +11,6 @@ class TDengineTest {
         classLoaderSwapper.setCurrentThreadClassLoader("lib/taos-jdbcdriver-2.0.40-dist.jar");
 
         TDengine tDengine = new TDengine();
-        tDengine.query("select server_version()");
+        tDengine.queryByJdbc("select server_version()");
     }
 }
