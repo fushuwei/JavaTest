@@ -5,6 +5,10 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
-    <includeAll path="classpath:/db/changelog/xml/*.xml" relativeToChangelogFile="false"/>
+    <!-- XML形式 -->
+    <!-- <includeAll path="classpath:/db/changelog/xml/*.xml" relativeToChangelogFile="false"/> -->
+
+    <!-- SQL形式 -->
+    <includeAll path="classpath:db/changelog/sql/*.sql" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
