@@ -8,5 +8,15 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+# IntelliJ IDEA 配置
+ij_any_line_comment_at_first_column = false
+ij_any_line_comment_add_space = true
+ij_any_line_comment_add_space_on_reformat = true
+ij_any_block_comment_at_first_column = false
+ij_any_block_comment_add_space = true
+
+[*.properties]
+ij_properties_keep_blank_lines = true
+
 [*.md]
 trim_trailing_whitespace = false
