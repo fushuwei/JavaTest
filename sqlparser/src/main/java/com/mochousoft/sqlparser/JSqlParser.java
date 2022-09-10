@@ -18,11 +18,7 @@ public class JSqlParser {
 
     public static void main(String[] args) {
 
-        String sql1 = "select id, xm name, nl as age from t_user";
-        String sql2 = "select id, xm name, nl as age from (select * from t_user)";
-        String sql3 = "select id, xm name, nl as age from t_user1 union select id, xm name, nl as age from t_user2";
-
-        JSONObject jResult = parse(sql2);
+        JSONObject jResult = parse(args[0]);
 
         System.out.println(formatJSON(jResult));
     }
