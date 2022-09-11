@@ -12,11 +12,4 @@
 
     <artifactId>jdbc</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>
