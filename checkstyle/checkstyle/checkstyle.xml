@@ -59,9 +59,9 @@
         <property name="severity" value="error"/>
     </module>
 
-    <module name="SuppressionFilter">
-        <property name="file" value="${checkstyle.suppressions.file}" default="suppressions.xml"/>
-    </module>
+    <!-- <module name="SuppressionFilter">
+        <property name="file" value="${checkstyle.suppressions.file}" default="checkstyle/checkstyle-suppressions.xml"/>
+    </module> -->
 
     <!-- All Java AST specific tests live under TreeWalker module. -->
     <module name="TreeWalker">
