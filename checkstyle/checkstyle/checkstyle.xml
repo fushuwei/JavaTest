@@ -31,6 +31,9 @@
 -->
 
 <module name="Checker">
+
+    <property name="charset" value="UTF-8"/>
+
     <!-- 文件长度不超过3000行 -->
     <module name="FileLength">
         <property name="max" value="3000"/>
@@ -63,9 +66,9 @@
             <property name="max" value="120"/>
         </module>
 
-        <!-- 检查方法行数, 不能超过150行 -->
+        <!-- 检查方法行数, 不能超过300行 -->
         <module name="MethodLength">
-            <property name="max" value="150"/>
+            <property name="max" value="300"/>
         </module>
 
         <!-- ******************** Naming Conventions ******************** -->
@@ -129,7 +132,6 @@
         <!-- 检查只有 private 构造函数的类是否声明为 final -->
         <module name="FinalClass"/>
 
-        <!-- 检查工具类是否有putblic的构造器 -->
         <!-- 检查仅包含静态方法或字段的类有没有公共构造函数 -->
         <module name="HideUtilityClassConstructor"/>
 
@@ -221,6 +223,9 @@
         <module name="EmptyLineSeparator">
             <property name="allowMultipleEmptyLines" value="false"/>
             <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+            <property name="tokens"
+                      value="PACKAGE_DEF , IMPORT , STATIC_IMPORT , CLASS_DEF , INTERFACE_DEF , ENUM_DEF , STATIC_INIT , INSTANCE_INIT , METHOD_DEF , CTOR_DEF"/>
+            <!-- <property name="tokens" value="PACKAGE_DEF , IMPORT , STATIC_IMPORT , CLASS_DEF , INTERFACE_DEF , ENUM_DEF , STATIC_INIT , INSTANCE_INIT , METHOD_DEF , CTOR_DEF , RECORD_DEF , COMPACT_CTOR_DEF"/> -->
         </module>
 
         <!-- ******************** Block Checks ******************** -->
@@ -241,6 +246,9 @@
         <module name="RightCurly"/>
 
         <!-- ******************** Miscellaneous ******************** -->
+
+        <!-- 检查 Java 代码的缩进 -->
+        <module name="Indentation"/>
 
         <!-- 检查 TODO -->
         <!-- <module name="TodoComment"/> -->
@@ -280,7 +288,15 @@
         <module name="JavadocType"/>
 
         <!-- 检查方法或构造函数的 Javadoc -->
-        <module name="JavadocMethod"/>
+        <module name="JavadocMethod">
+            <!-- 允许 get set 方法没有注释 -->
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+        </module>
+
+        <!-- 检查属性对应的方法是否有 Javadoc -->
+        <!-- <module name="MissingJavadocMethod"> -->
+        <!--     <property name="allowMissingPropertyJavadoc" value="true"/> -->
+        <!-- </module> -->
 
         <!-- 检查变量的 Javadoc -->
         <!-- <module name="JavadocVariable"/> -->
