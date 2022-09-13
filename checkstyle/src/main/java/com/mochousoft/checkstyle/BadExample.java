@@ -33,7 +33,39 @@ public class BadExample { // 1、没有类的 Javadoc，2、有两个空行
         // @formatter:on
 
         try {
-            System.out.println(c);
+            try {
+                try {
+                    try {
+                        try { // 箭头函数
+                            System.out.println(c);
+                        } catch (Exception e) {
+                            //
+                        }
+                    } catch (Exception e) {
+                        //
+                    }
+                } catch (Exception e) {
+                    //
+                }
+            } catch (Exception e) {
+                //
+            }
+
+            if (true) {
+                if (true) {
+                    if (true) {
+                        if (true) {
+                            if (true) {
+                                if (true) {
+                                    if (true) {
+                                        return c;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,11 +73,11 @@ public class BadExample { // 1、没有类的 Javadoc，2、有两个空行
         return c;
     }
 
-    public String getName() {
+    public String getName() { // 正常，无需 Javadoc
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) { // 正常，无需 Javadoc
         this.name = name;
     }
 }
