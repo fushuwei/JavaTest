@@ -3,9 +3,9 @@ package com.mochousoft.checkstyle;
 
 
 
-public class BadHabit {
+public class BadExample {
     public static final long abc = 100;
-    public BadHabit()
+    public BadExample()
     {
         System.out.println( 1 ) ;
 
@@ -24,6 +24,10 @@ public class BadHabit {
 
     public void test () {
 
+    }
+
+    public int getTest() {
+        return 1;
     }
 
 }
