@@ -289,6 +289,11 @@
 
         <!-- 检查方法或构造函数的 Javadoc -->
         <module name="JavadocMethod">
+            <property name="allowedAnnotations"
+                      value="Override, Test, Before, After, BeforeClass, AfterClass, Parameterized, Parameters"/>
+            <property name="tokens" value="METHOD_DEF , ANNOTATION_FIELD_DEF"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
             <!-- 允许 get set 方法没有注释 -->
             <property name="allowMissingPropertyJavadoc" value="true"/>
         </module>
