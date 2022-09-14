@@ -21,8 +21,8 @@
         <module>sqlparser</module>
         <module>flyway</module>
         <module>liquibase</module>
-        <module>jpa</module>
         <module>checkstyle</module>
+        <module>spring-data-jpa</module>
     </modules>
 
     <dependencies>

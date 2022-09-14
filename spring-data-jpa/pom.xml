@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jpa</artifactId>
+    <artifactId>spring-data-jpa</artifactId>
 
     <dependencies>
         <dependency>
