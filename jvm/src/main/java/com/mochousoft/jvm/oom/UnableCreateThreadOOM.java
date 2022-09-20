@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 出现该异常主要有两个原因: 1、线程数超过操作系统限制, 2、内存中没有空间容纳新线程.
  * </p>
  * <br/>
- * <p>一、模拟线程数超过操作系统限制</p>
+ * <p>模拟步骤: </p>
  * <p>1、cd /data</p>
  * <p>2、vim UnableCreateThreadOOM.java</p>
  * <p>3、将当前文件内容粘贴进去 (需要删除 package com.mochousoft.jvm.oom)</p>
@@ -34,8 +34,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>&nbsp;&nbsp;当前操作会导致服务器无法响应, 必须强制重启</p>
  * <p>&nbsp;&nbsp;通过 cat /proc/sys/kernel/threads-max 可以查看操作系统允许的最大线程数</p>
  * <br/>
- * <p>二、模拟内存中没有空间容纳新线程</p>
- * <p>1、</p>
  */
 public class UnableCreateThreadOOM {
 
@@ -43,15 +41,15 @@ public class UnableCreateThreadOOM {
 
     public static void main(String[] args) {
         while (true) {
-            (new TestThread1()).start();
-            // (new TestThread2()).start();
+            (new TestThread()).start();
         }
     }
 
     /**
      * 模拟线程数超过操作系统限制
      */
-    public static class TestThread1 extends Thread {
+    public static class TestThread extends Thread {
+
         @Override
         public void run() {
             System.out.println(count.incrementAndGet());
@@ -60,27 +58,6 @@ public class UnableCreateThreadOOM {
                 try {
                     Thread.sleep(Integer.MAX_VALUE);
                 } catch (InterruptedException e) {
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * 模拟内存中没有空间容纳新线程
-     */
-    public static class TestThread2 extends Thread {
-        @Override
-        public void run() {
-            System.out.println(count.incrementAndGet());
-
-            List<Object> list = new ArrayList<>();
-
-            while (true) {
-                try {
-                    list.add(new Object());
-                    Thread.sleep(Integer.MAX_VALUE);
-                } catch (Exception e) {
                     break;
                 }
             }
