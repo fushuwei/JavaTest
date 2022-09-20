@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <br/>
  * <p>二、解决办法</p>
  * <p>1、通过 cat /proc/sys/kernel/threads-max 可以查看操作系统允许的最大线程数</p>
- * <p>2、修改最大线程数: echo 50000 > /proc/sys/kernel/threads-max</p>
+ * <p>2、修改最大线程数: echo 65535 > /proc/sys/kernel/threads-max</p>
  * <p>3、运行 java UnableCreateThreadOOM 验证效果</p>
  * <p>4、运行结果</p>
  * <p>&nbsp;&nbsp;32700</p>
@@ -62,8 +62,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>&nbsp;&nbsp;Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00007f2ae82b3000, 12288, 0) failed; error='无法分配内存' (errno=12)</p>
  * <p>&nbsp;&nbsp;[thread 139822261544704 also had an error]</p>
  * <p>5、结果分析</p>
- * <p><font color='red'>&nbsp;&nbsp;将最大线程数设置成50000后，重新运行程序确实比修改之前多创建了很多线程，但是
- * 尚未创建到50000个线程就报错了，是因为没有足够的内存分配给新创建的线程使用</font></p>
+ * <p><font color='red'>&nbsp;&nbsp;将最大线程数设置成65535后，重新运行程序确实比修改之前多创建了很多线程，但是
+ * 尚未创建到65535个线程就报错了，是因为没有足够的内存分配给新创建的线程使用</font></p>
+ * <p>6、以上方式修改线程数，重启服务器后会失效，永久修改的命令如下:</p>
+ * <p>echo "kernel.threads-max = 65535" >> /etc/sysctl.conf</p>
+ * <p>sysctl -p</p>
  * <br/>
  */
 public class UnableCreateThreadOOM {
