@@ -23,6 +23,7 @@
         <module>liquibase</module>
         <module>checkstyle</module>
         <module>spring-data-jpa</module>
+        <module>minio</module>
     </modules>
 
     <dependencies>
