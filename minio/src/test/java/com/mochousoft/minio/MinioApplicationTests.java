@@ -1,8 +1,7 @@
 package com.mochousoft.minio;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
+import com.mochousoft.minio.jdbc.ClassLoaderSwapper;
+import com.mochousoft.minio.jdbc.MySQL8;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 @SpringBootTest
@@ -42,36 +40,24 @@ class MinioApplicationTests {
                     minioService.uploadFile(is, bucket, f.getName());
                 }
             }
-
-            if (true) {
-                return;
-            }
-
-
-            // 连接Minio
-            MinioClient minioClient = MinioClient.builder().endpoint("http://192.168.7.250:9000").credentials("minioadmin", "minioadmin").build();
-
-            // Make 'asiatrip' bucket if not exist.
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket("abc").build());
-            if (!found) {
-                // Make a new bucket called 'asiatrip'.
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket("abc").build());
-            } else {
-                System.out.println("Bucket 'abc' already exists.");
-            }
-
-            // Upload '/home/user/Photos/asiaphotos.zip' as object name
-            // 'asiaphotos-2015.zip' to bucket
-            // 'asiatrip'.
-//			minioClient.uploadObject(UploadObjectArgs.builder().bucket("abc").object("1.txt")
-//					.filename("D:\\实时监控数据.txt").build());
-//			System.out.println("'实时监控数据.txt' is successfully uploaded as "
-//					+ "object '1.txt' to bucket 'abc'.");
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Test
+    void testMySQLConnectionByMinio() {
+        try {
+            // 下载jar
+            InputStream is = minioService.download("jdbc-driver", "mysql-connector-java-8.0.29.jar");
+
+            ClassLoaderSwapper classLoaderSwapper = new ClassLoaderSwapper();
+            classLoaderSwapper.setCurrentThreadClassLoader("mysql-connector-java-8.0.29.jar", is);
+
+            MySQL8 mysql8 = new MySQL8();
+            mysql8.query("select version()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
