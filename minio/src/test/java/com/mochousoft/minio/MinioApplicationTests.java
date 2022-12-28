@@ -60,4 +60,22 @@ class MinioApplicationTests {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 次场景不成立, classloader无法加载网络地址中的jar
+     */
+    @Test
+    void testMySQLConnectionByMinioWebUrl() {
+        try {
+            String path = "http://192.168.169.128:9001/jdbc-driver/mysql-connector-java-8.0.29.jar";
+
+            ClassLoaderSwapper classLoaderSwapper = new ClassLoaderSwapper();
+            classLoaderSwapper.setCurrentThreadClassLoader(path);
+
+            MySQL8 mysql8 = new MySQL8();
+            mysql8.query("select version()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

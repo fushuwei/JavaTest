@@ -24,6 +24,22 @@ public final class ClassLoaderSwapper {
     /**
      * 为当前线程设置新的类加载器
      *
+     * @param fileName
+     * @param is
+     * @throws IOException
+     */
+    public void setCurrentThreadClassLoader(String fileName, InputStream is) throws IOException {
+
+        String path = "D:\\Workspace\\Personal\\JavaTest\\minio\\lib\\" + fileName;
+
+        FileUtils.copyInputStreamToFile(is, new File(path));
+
+        this.setCurrentThreadClassLoader(path);
+    }
+
+    /**
+     * 为当前线程设置新的类加载器
+     *
      * @param path 新的类加载器要加载的jar包路径或jar包所在目录
      */
     public void setCurrentThreadClassLoader(String path) {
@@ -38,22 +54,6 @@ public final class ClassLoaderSwapper {
 
         // 为当前线程设置新的类加载器
         this.setCurrentThreadClassLoader(jdbcClassLoader);
-    }
-
-    /**
-     * 为当前线程设置新的类加载器
-     *
-     * @param fileName
-     * @param is
-     * @throws IOException
-     */
-    public void setCurrentThreadClassLoader(String fileName, InputStream is) throws IOException {
-
-        String path = "D:\\Workspace\\Personal\\JavaTest\\minio\\lib\\" + fileName;
-
-        FileUtils.copyInputStreamToFile(is, new File(path));
-
-        this.setCurrentThreadClassLoader(path);
     }
 
     /**
