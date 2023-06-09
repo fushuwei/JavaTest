@@ -64,11 +64,14 @@ public class DruidSqlParser {
             return jResult;
         }
 
-        String[] supportTypeList = new String[]{JdbcConstants.ORACLE, JdbcConstants.MYSQL, JdbcConstants.SQL_SERVER, JdbcConstants.POSTGRESQL};
+        String[] supportTypeList = new String[]{
+            JdbcConstants.ORACLE, JdbcConstants.MYSQL, JdbcConstants.SQL_SERVER,
+            JdbcConstants.POSTGRESQL, JdbcConstants.CLICKHOUSE};
         if (!Arrays.asList(supportTypeList).contains(databaseType)) {
             jResult.put("status", false);
-            jResult.put("message", String.format("参数错误: 不支持[%s]类型数据库, 可选项: [%s, %s, %s, %s]", databaseType,
-                JdbcConstants.ORACLE, JdbcConstants.MYSQL, JdbcConstants.SQL_SERVER, JdbcConstants.POSTGRESQL));
+            jResult.put("message", String.format("参数错误: 不支持[%s]类型数据库, 可选项: [%s, %s, %s, %s]",
+                databaseType, JdbcConstants.ORACLE, JdbcConstants.MYSQL, JdbcConstants.SQL_SERVER,
+                JdbcConstants.POSTGRESQL, JdbcConstants.CLICKHOUSE));
             return jResult;
         }
 
