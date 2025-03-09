@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 定义变量 -->
+    <timestamp key="yyyy-MM-dd" datePattern="yyyy-MM-dd"/>
+    <timestamp key="HH_mm_ss.SSS" datePattern="HH_mm_ss.SSS"/>
+
+    <!-- 控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{0}#%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <append>false</append>
+        <file>${log.dir:-log}/${yyyy-MM-dd}/${log.filename:-demo}__${HH_mm_ss.SSS}.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{0}#%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 启动程序时, 可以指定本次任务的日志级别 -->
+    <root level="${log.level:-INFO}">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

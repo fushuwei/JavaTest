@@ -25,6 +25,7 @@
         <module>checkstyle</module>
         <module>spring-data-jpa</module>
         <module>minio</module>
+        <module>mvn-package-executable-jar</module>
     </modules>
 
     <dependencies>
